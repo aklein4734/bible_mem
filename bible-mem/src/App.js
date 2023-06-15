@@ -1,20 +1,24 @@
-import React, {useState, useRef, useEffect} from 'react';
-import TodoList from './TodoList';
+import React, {useState, useRef, useEffect} from 'react'
+import TodoList from './TodoList'
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const todoNameRef = useRef();
-  let i = 0;
+  const [todos, setTodos] = useState([])
+  const todoNameRef = useRef()
+  const [id, setid] = useState(0);
 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-    if (storedTodos) setTodos(storedTodos)
+    if (storedTodos) {
+      setTodos(storedTodos)
+    } 
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+    if (todos.length !== 0) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+    }
   }, [todos])
 
   function toggleTodo(id) {
@@ -28,8 +32,8 @@ function App() {
     const name = todoNameRef.current.value
     if (name === '') return
     setTodos(prevtodos => {
-      i++
-      return [...prevtodos, {id: i, name: name, complete: false}]
+      setid(id + 1);
+      return [...prevtodos, {id: id, name: name, complete: false}]
     })
     todoNameRef.current.value = null
   }
