@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import TodoList from './TodoList'
+import Memory from './Memory'
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
